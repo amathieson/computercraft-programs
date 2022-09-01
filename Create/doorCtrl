@@ -1,0 +1,63 @@
+local monitors = {
+	"monitor_12",
+	"monitor_13"
+}
+
+local motor = peripheral.wrap("electric_motor_3")
+
+motor.setSpeed(5)
+
+for i,m in ipairs(monitors) do
+	local mon = peripheral.wrap(m)
+	mon.setBackgroundColour(colours.black)
+	mon.setTextScale(0.5)
+	mon.clear()
+	mon.setCursorPos(1,1)
+	mon.blit("                                ", "00000000000000000000000000000000", "55555555555555555555555555555555")
+	mon.setCursorPos(1,2)
+	mon.blit("                                ", "00000000000000000000000000000000", "55555555555555555555555555555555")
+	mon.setCursorPos(1,3)
+	mon.blit("                                ", "00000000000000000000000000000000", "55555555555555555555555555555555")
+	mon.setCursorPos(1,4)
+	mon.blit("                                ", "00000000000000000000000000000000", "55555555555555555555555555555555")
+	
+	
+	mon.setCursorPos(1,6)
+	mon.blit("                                ", "00000000000000000000000000000000", "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+	mon.setCursorPos(1,7)
+	mon.blit("                                ", "00000000000000000000000000000000", "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+	mon.setCursorPos(1,8)
+	mon.blit("                                ", "00000000000000000000000000000000", "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+	mon.setCursorPos(1,9)
+	mon.blit("                                ", "00000000000000000000000000000000", "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+	mon.setCursorPos(1,10)
+	mon.blit("                                ", "00000000000000000000000000000000", "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+	
+	mon.setCursorPos(6,3)
+	mon.blit("OPEN", "0000", "5555")
+	mon.setCursorPos(5,9)
+	mon.blit("CLOSE", "fffff", "eeeee")
+end
+
+local function has_value (tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+
+    return false
+end
+
+while true do
+  local event, side, x, y = os.pullEvent("monitor_touch")
+  if has_value(monitors, side) then
+	if y > 5 then
+		print("Sending door UP")
+		motor.setSpeed(-64)
+	else
+		print("Sending door UP")
+		motor.setSpeed(64)
+	end
+  end
+end
